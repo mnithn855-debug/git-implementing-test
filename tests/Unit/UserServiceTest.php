@@ -1,10 +1,10 @@
 <?php
 
-require_once __DIR__ .'/../../app/Service/UserService.php';
+// require_once _DIR_ .'/../../app/Service/UserService.php';
 
-use App\Service\UserService;
+// use App\Service\UserService;
 
-$serviceObj = new UserService();
+// $serviceObj = new UserService();
 
 
 // $service_result = $serviceObj->difference(2,5);
@@ -18,7 +18,6 @@ $serviceObj = new UserService();
    
 
 // $var = "        testUser     ";
-// echo"\n";
 // echo $var;
 // echo "\n";
 // $resultOfTrimmed = $serviceObj->nameTrimming($var);
@@ -28,12 +27,25 @@ $serviceObj = new UserService();
 //         echo $resultOfTrimmed;
 //         echo "\nTrim Funtion working\n";
 //     }
-$word = "@#Nit$%hi*(n";
-echo $word;
-$name = $serviceObj->specialCharacterRemoving($word);
-$name = "*&^%".$name.")(";
-if (ctype_alnum($name)){
-    echo "\nspecial chars removed";
-} else{
-    echo "not removed";
+
+
+
+namespace App\Tests\Unit;
+
+use App\Service\UserService;
+use PHPUnit\Framework\TestCase;
+
+class UserServiceTest extends TestCase
+{
+    public function testDifference()
+    {
+        $service = new UserService();
+        $this->assertEquals(3, $service->difference(2, 5));
+    }
+
+    public function testTrim()
+    {
+        $service = new UserService();
+        $this->assertEquals("testUser", $service->nameTrimming("   testUser   "));
+    }
 }
