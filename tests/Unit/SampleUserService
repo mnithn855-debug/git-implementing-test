@@ -1,0 +1,123 @@
+<?php
+
+// require_once _DIR_ .'/../../app/Service/UserService.php';
+
+// use App\Service\UserService;
+
+// $serviceObj = new UserService();
+
+
+// $service_result = $serviceObj->difference(2,5);
+// $comparing_result = abs(2 - 9);
+
+// if($service_result == $comparing_result){
+//     echo "Service Class Difference method Working\n";
+// } else {
+//     echo "Service Class Difference Method Not working\n";
+// }
+   
+
+// $var = "        testUser     ";
+// echo $var;
+// echo "\n";
+// $resultOfTrimmed = $serviceObj->nameTrimming($var);
+
+// if(!str_contains($resultOfTrimmed, " "))
+//     {
+//         echo $resultOfTrimmed;
+//         echo "\nTrim Funtion working\n";
+//   }
+
+namespace App\Tests\Unit;
+
+use App\Service\SampleUser;                
+use PHPUnit\Framework\TestCase;
+use PDO;
+
+class UserServiceTest extends TestCase
+{
+    private $service;
+
+
+    // Runs before each test
+    protected function setUp(): void
+    {
+        $this->service = new SampleUser();
+    }
+
+    // Runs after each test
+    protected function tearDown(): void
+    {
+        unset($this->service);
+    }
+
+    public function testDifference()
+    {
+        $this->assertEquals(3, $this->service->difference(2,5));
+    }
+
+    public function testTrim()
+    {
+        $this->assertEquals(
+            "testUser",
+            $this->service->nameTrimming("   testUser   ")
+        );
+    }
+
+    public function testSpecialCharacterRemoving()
+    {
+        $this->assertEquals(
+            "Nithin",
+            $this->service->specialCharacterRemoving("@#Nit$%hi*(n")
+        );
+    }
+
+    public function testIsEvenTrue()
+    {
+        $this->assertTrue($this->service->isEven(4));
+    }
+
+    public function testIsEvenFalse()
+    {
+        $this->assertFalse($this->service->isEven(5));
+    }
+
+    public function testArrayCount()
+    {
+        $this->assertCount(3, $this->service->getUserArray());
+    }
+
+    public function testArrayHasValue()
+    {
+        $this->assertContains(
+            "Nithin",
+            $this->service->getUserArray()
+        );
+    }
+
+    public function testNullValue()
+    {
+        $this->assertNull($this->service->getNullValue());
+    }
+
+    public function testNotNull()
+    {
+        $this->assertNotNull($this->service->getGreeting());
+    }
+
+    public function testStringContains()
+    {
+        $this->assertStringContainsString(
+            "Hello",
+            $this->service->getGreeting()
+        );
+    }
+
+    public function testInstanceOf()
+    {
+        $this->assertInstanceOf(
+            SampleUser::class,
+            $this->service
+        );
+    }
+}
